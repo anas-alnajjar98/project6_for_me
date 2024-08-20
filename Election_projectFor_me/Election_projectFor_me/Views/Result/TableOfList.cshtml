@@ -1,0 +1,103 @@
+﻿@model IEnumerable<Election_projectFor_me.Models.GeneralListCandidate>
+
+
+@{
+    ViewBag.Title = "TableOfList";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+
+
+<head>
+
+    <style>
+        body {
+            margin: 0;
+            font-family: Open-sans, sans-serif;
+        }
+
+        h1, h2, h3 {
+            font-family: Raleway, Helvetica, sans-serif;
+        }
+
+        h2 {
+            font-size: 28px;
+            font-weight: bold;
+            margin-bottom: 30px;
+            margin-top: 0;
+        }
+
+        .padded {
+            padding: 100px 0;
+        }
+
+
+        .avatar {
+            width: 30px;
+            border-radius: 50%;
+        }
+
+        .avatar-bordered {
+            box-shadow: 0 1px 2px rgba(0,0,0,0.2);
+            border: white 1px solid;
+        }
+
+        .avatar-large {
+            width: 50px;
+        }
+
+        #p {
+            font-size: 18px;
+        }
+    </style>
+
+</head>
+<body>
+
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+
+
+
+
+    <h2 class="text-center">نتائج الانتخابات لكل حزب</h2>
+    <p id="p" class="text-center mb-4">
+        تعرض هذه الصفحة نتائج الانتخابات لكل حزب على حدة، حيث يمكنك الاطلاع على تفاصيل الأداء الانتخابي لكل حزب ومعرفة عدد الأصوات التي حصل عليها. توفر هذه المعلومات نظرة شاملة على توزيع الأصوات والتأثير الذي أحدثته الأحزاب في الانتخابات.
+    </p>
+
+    <br />
+    <br />
+
+    <table class="table align-middle mb-0 bg-white">
+        <thead class="bg-light">
+            <tr>
+                <th>اسم المترشح</th>
+                <th>ناجح/راسب</th>
+
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        <div class="d-flex align-items-center">
+                            <img src="https://mdbootstrap.com/img/new/avatars/8.jpg" alt="" class="rounded-circle" style="width: 45px; height: 45px;" />
+                            <div class="ms-3">
+                                <p class="fw-bold mb-1">@item.CandidateName</p>
+                            </div>
+                        </div>
+                    </td>
+                    <td>
+                        <span class="badge bg-success rounded-pill">@item.Sucess</span>
+                    </td>
+                </tr>
+            }
+
+        </tbody>
+    </table>
+</body>
