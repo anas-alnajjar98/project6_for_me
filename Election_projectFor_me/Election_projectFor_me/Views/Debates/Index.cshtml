@@ -133,7 +133,7 @@
                     {
                         <div class="col-md-4 mb-4">
                             <div class="card h-100">
-                                <img width="100%" height="auto" src="~/Content/img/imagecards.jpg" alt="Debate Image" class="card-img-top" />
+                                <img width="100%" height="auto" src="~/assets/images/imagecards.jpg" alt="Debate Image" class="card-img-top" />
                                 <div class="card-body">
                                     <h5 class="card-title">@Html.DisplayFor(modelItem => item.DebateTitle)</h5>
                                     <p class="card-text">
@@ -143,6 +143,8 @@
                                         <strong>مرشح 2:</strong> @Html.DisplayFor(modelItem => item.Candidate2ID)<br />
                                         <strong>الوصف:</strong> @Html.DisplayFor(modelItem => item.Description)<br />
                                     </p>
+                                    <!-- Blue Button for Joining Meeting -->
+                                    <a href="@Url.Action("JoinMeeting", "Debates", new { id = item.DebateID })" class="btn btn-primary">انضم إلى الاجتماع</a>
                                 </div>
                             </div>
                         </div>

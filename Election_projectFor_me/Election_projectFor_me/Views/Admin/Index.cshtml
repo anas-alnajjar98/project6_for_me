@@ -1,27 +1,155 @@
-﻿@{
+﻿@*@{
+        ViewBag.Title = "Index";
+        Layout = "~/Views/Shared/_LayoutPage1.cshtml";
+    }
+
+
+    @model IEnumerable<Election_projectFor_me.Models.Ad>
+
+
+
+
+    <div class="container mt-5">
+
+        <form id="bulkActionForm" method="post" action="@Url.Action("BulkAction", "Admin")">
+            <table class="table table-bordered table-responsive table-hover">
+                <thead>
+                    <tr>
+                        <th><input type="checkbox" id="selectAll"></th>
+                        <th>عنوان الاعلان</th>
+                        <th>اسم المرشح</th>
+                        <th>نوع الترشح</th>
+                        <th>محتوى الاعلان</th>
+                        <th>رابط الاعلان</th>
+                        <th>تعليق الادمن</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var ad in Model)
+                    {
+                        <tr>
+                            <td><input type="checkbox" name="selectedIds" value="@ad.AdID" class="select-row"></td>
+                            <td>@ad.Title</td>
+                            <td>@ad.CandidateName</td>
+                            <td>@ad.Type</td>
+                            <td>@ad.Content</td>
+                            <td>@ad.URLPath</td>
+                            <td>
+                                <textarea name="adminComments[@ad.AdID]" class="form-control mb-2" placeholder="Admin comment (optional)"></textarea>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+            <input type="hidden" id="bulkActionType" name="action" value="">
+            <button type="button" id="approveSelected" class="btn btn-success btn-sm">الموافقة على المحدد</button>
+            <button type="button" id="rejectSelected" class="btn btn-danger btn-sm">رفض المحدد</button>
+        </form>
+    </div>
+
+    <style>
+        /* Style for the table headers */
+        body{
+
+            direction :rtl;
+        }
+        .table th {
+            font-weight: 600;
+            background-color: #f8f9fa; /* Light grey background */
+            text-align: left;
+        }
+
+        /* Style for the table rows */
+        .table td {
+            vertical-align: middle;
+        }
+
+        /* Style for the action buttons */
+        .btn-success {
+            background-color: green;
+            border-color: green;
+        }
+
+        .btn-danger {
+            background-color: red;
+            border-color: red;
+        }
+
+        .btn {
+            width: 150px;
+            margin-right: 10px;
+        }
+
+        .table textarea {
+            width: 100%;
+            margin-bottom: 10px;
+        }
+
+        .container h3 {
+            font-size: 1.5rem;
+            font-weight: 500;
+            margin-bottom: 20px;
+        }
+
+        /* Style for the select all checkbox */
+        #selectAll {
+            margin: 0;
+        }
+    </style>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const selectAllCheckbox = document.getElementById("selectAll");
+            const rowCheckboxes = document.querySelectorAll(".select-row");
+            const approveSelectedButton = document.getElementById("approveSelected");
+            const rejectSelectedButton = document.getElementById("rejectSelected");
+            const bulkActionForm = document.getElementById("bulkActionForm");
+            const bulkActionType = document.getElementById("bulkActionType");
+
+            selectAllCheckbox.addEventListener("change", function () {
+                rowCheckboxes.forEach(checkbox => checkbox.checked = selectAllCheckbox.checked);
+            });
+
+            approveSelectedButton.addEventListener("click", function () {
+                bulkActionType.value = "Approve";
+                bulkActionForm.submit();
+            });
+
+            rejectSelectedButton.addEventListener("click", function () {
+                bulkActionType.value = "Reject";
+                bulkActionForm.submit();
+            });
+        });
+    </script>*@
+
+@{
     ViewBag.Title = "Index";
-    Layout = "~/Views/Shared/_LayoutPage1.cshtml";
 }
 
+<h2>Index</h2>
 
 @model IEnumerable<Election_projectFor_me.Models.Ad>
 
+@{
+    ViewBag.Title = "Admin Dashboard";
+    Layout = "~/Views/Shared/_LayoutPage1.cshtml";
+}
 
-
+<h2>Admin Dashboard</h2>
 
 <div class="container mt-5">
     <h3>Admin Dashboard</h3>
     <form id="bulkActionForm" method="post" action="@Url.Action("BulkAction", "Admin")">
-        <table class="table table-bordered table-responsive table-hover">
-            <thead>
+        <table class="table table-striped table-bordered table-hover table-responsive mb-0">
+            <thead style="background-color: #619460; color: #ffffff;">
                 <tr>
                     <th><input type="checkbox" id="selectAll"></th>
-                    <th>عنوان الاعلان</th>
-                    <th>اسم المرشح</th>
-                    <th>نوع الترشح</th>
-                    <th>محتوى الاعلان</th>
-                    <th>رابط الاعلان</th>
-                    <th>تعليق الادمن</th>
+                    <th>Title</th>
+                    <th>Candidate Name</th>
+                    <th>Type</th>
+                    <th>Content</th>
+                    <th>URL Path</th>
+                    <th>Admin Comment</th>
                 </tr>
             </thead>
             <tbody>
@@ -42,20 +170,19 @@
             </tbody>
         </table>
         <input type="hidden" id="bulkActionType" name="action" value="">
-        <button type="button" id="approveSelected" class="btn btn-success btn-sm">الموافقة على المحدد</button>
-        <button type="button" id="rejectSelected" class="btn btn-danger btn-sm">رفض المحدد</button>
+        <div class="mt-3">
+            <button type="button" id="approveSelected" class="btn btn-success btn-sm">Approve Selected</button>
+            <button type="button" id="rejectSelected" class="btn btn-danger btn-sm">Reject Selected</button>
+        </div>
     </form>
 </div>
 
 <style>
     /* Style for the table headers */
-    body{
-
-        direction :rtl;
-    }
     .table th {
         font-weight: 600;
-        background-color: #f8f9fa; /* Light grey background */
+        background-color: #619460; /* Greenish background */
+        color: #ffffff; /* White text color */
         text-align: left;
     }
 
@@ -66,25 +193,46 @@
 
     /* Style for the action buttons */
     .btn-success {
-        background-color: green;
-        border-color: green;
+        background-color: #28a745; /* Green background */
+        border-color: #28a745; /* Green border */
     }
+
+        .btn-success:hover {
+            background-color: #218838; /* Darker green on hover */
+        }
 
     .btn-danger {
-        background-color: red;
-        border-color: red;
+        background-color: #dc3545; /* Red background */
+        border-color: #dc3545; /* Red border */
     }
 
+        .btn-danger:hover {
+            background-color: #c82333; /* Darker red on hover */
+        }
+
+    /* Set button width and margin */
     .btn {
         width: 150px;
         margin-right: 10px;
     }
 
+    /* Alternating row background color */
+    .table-striped tbody tr:nth-of-type(odd) {
+        background-color: #f8f9fa; /* Light grey for odd rows */
+    }
+
+    /* Border styling for the table */
+    .table-bordered {
+        border: 1px solid #dee2e6; /* Light grey border */
+    }
+
+    /* Style for the textarea inside the table */
     .table textarea {
         width: 100%;
         margin-bottom: 10px;
     }
 
+    /* Container header styles */
     .container h3 {
         font-size: 1.5rem;
         font-weight: 500;
@@ -94,6 +242,11 @@
     /* Style for the select all checkbox */
     #selectAll {
         margin: 0;
+    }
+
+    /* Table hover effect */
+    .table-hover tbody tr:hover {
+        background-color: #e9ecef; /* Light grey on hover */
     }
 </style>
 
@@ -121,4 +274,3 @@
         });
     });
 </script>
-

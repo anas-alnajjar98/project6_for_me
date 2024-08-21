@@ -187,6 +187,7 @@ namespace Election_projectFor_me.Controllers
             if (ID != null)
             {
                 var user = DB.USERS.Find(ID);
+                ViewBag.ElectionArea = user.ElectionArea;
                 if (user.LocalElections == false && user.whitePaperLocalElections == false)
                 {
                     ViewBag.LocalElectionsPath = $"LocalElections?type={(type)}";

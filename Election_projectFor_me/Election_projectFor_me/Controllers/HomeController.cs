@@ -184,7 +184,9 @@ namespace Election_projectFor_me.Controllers
                 
                 throw; 
             }
+         
         }
+      
 
     }
 }

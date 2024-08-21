@@ -42,6 +42,7 @@
       <End Role="Ad" EntitySet="Ads" />
     </AssociationSet>
     <EntitySet Name="Debates" EntityType="ELECTION_PROJECTModel.Debate" />
+    <EntitySet Name="Admins" EntityType="ELECTION_PROJECTModel.Admin" />
   </EntityContainer>
   <EntityType Name="GeneralListCandidate">
     <Key>
@@ -196,5 +197,15 @@
     <Property Name="Candidate2ID" Type="Int32" Nullable="false" />
     <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
     <Property Name="Status" Type="Boolean" />
+  </EntityType>
+  <EntityType Name="Admin">
+    <Key>
+      <PropertyRef Name="AdminID" />
+    </Key>
+    <Property Name="AdminID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Username" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="PasswordHash" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="img" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="Email" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
   </EntityType>
 </Schema>

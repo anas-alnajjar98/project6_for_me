@@ -2,6 +2,7 @@
     ViewBag.Title = "نوع الانتخابات";
     string localListAction = ViewBag.LocalElectionsPath;
     string partyListAction = ViewBag.PartyElections;
+    string ElectionArea = ViewBag.ElectionArea;
     bool isLocalActive = localListAction != null;
     bool isPartyActive = partyListAction != null;
     bool areBothInactive = !isLocalActive && !isPartyActive;
@@ -127,17 +128,39 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            var areBothInactive = @areBothInactive.ToString().ToLower();
-            if (areBothInactive) {
-                Swal.fire({
-                    title: 'اكتمل عملية التصويت',
-                    text: 'لقد أكملت عملية التصويت. شكراً لك!',
-                    icon: 'info',
-                    confirmButtonText: 'موافق'
-                });
-            }
-        });
+    document.addEventListener('DOMContentLoaded', function() {
+        // Check if the alert has already been shown
+        var alertShown = localStorage.getItem('electionAreaAlertShown');
+
+        // Check if `ElectionArea` is not null or undefined
+        var electionArea = '@ElectionArea';
+
+        // Check if alert should be shown
+        if (!alertShown && electionArea) {
+            Swal.fire({
+                title: 'الدائرة الانتخابية',
+                text: 'الدائرة الانتخابية الخاصة بك هي! ' + electionArea,
+                icon: 'info',
+                confirmButtonText: 'موافق'
+            }).then(() => {
+                // Set the flag to true after the alert is shown
+                localStorage.setItem('electionAreaAlertShown', 'true');
+            });
+        }
+
+        // Check if the `areBothInactive` variable is true
+        var areBothInactive = '@areBothInactive'.toLowerCase() === 'true';
+        if (areBothInactive) {
+            Swal.fire({
+                title: 'اكتمل عملية التصويت',
+                text: 'لقد أكملت عملية التصويت. شكراً لك!',
+                icon: 'info',
+                confirmButtonText: 'موافق'
+            });
+        }
+    });
     </script>
+
+
 </body>
 </html>

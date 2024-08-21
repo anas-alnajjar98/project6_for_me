@@ -13,8 +13,6 @@ namespace Election_projectFor_me.Controllers
     public class DebatesController : Controller
     {
         private ELECTION_PROJECTEntities db = new ELECTION_PROJECTEntities();
-
-        // GET: Debates
         public ActionResult Index()
         {
 
@@ -58,7 +56,6 @@ namespace Election_projectFor_me.Controllers
             {
                 db.Debates.Add(debates);
                 db.SaveChanges();
-                
                 return RedirectToAction("Index");
             }
 
@@ -122,6 +119,19 @@ namespace Election_projectFor_me.Controllers
             return RedirectToAction("Index");
         }
 
+
+
+
+
+        public ActionResult JoinMeeting(int id)
+        {
+            // You can pass the debate ID to the view if needed
+            ViewBag.DebateID = id;
+            return View();
+        }
+
+
+
         protected override void Dispose(bool disposing)
         {
             if (disposing)
@@ -132,3 +142,4 @@ namespace Election_projectFor_me.Controllers
         }
     }
 }
+

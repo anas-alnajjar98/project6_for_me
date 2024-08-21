@@ -55,6 +55,8 @@ namespace Election_projectFor_me.Controllers
 
                 NumberOfVotes = 0,
 
+                img = TempData["Image"] as string,
+
 
             };
 
@@ -63,7 +65,7 @@ namespace Election_projectFor_me.Controllers
                 if (generalListing.img != null)
                 {
 
-                    string path = Path.Combine(Server.MapPath("~/img"), generalListing.img);
+                    string path = Path.Combine(Server.MapPath("~/assets/images/"), generalListing.img);
 
                 }
 
@@ -83,7 +85,7 @@ namespace Election_projectFor_me.Controllers
             // حفظ تغييرات المرشحين في قاعدة البيانات
             db.SaveChanges();
 
-            return RedirectToAction("Payment", "Advertisement", new { id = 1 });
+            return RedirectToAction("Index", "Home");
 
 
             //ViewBag.ListName = listName;

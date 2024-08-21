@@ -234,33 +234,38 @@ namespace Election_projectFor_me.Controllers
                     {
                         item.Sucess = true;
                     }
-                    var topMasehe = db.LocalListCandidates
-              .Where(c => c.typeofCandidates == "مسيحي")
-              .OrderByDescending(c => c.NumberOfVotesCandidate)
-              .Take(1)
-              .ToList();
-                    foreach (var item in topMasehe)
-                    {
-                        item.Sucess = true;
-                    }
-
-                    var topQota = db.LocalListCandidates
-                        .Where(c => c.typeofCandidates == "كوتا")
-                        .OrderByDescending(c => c.NumberOfVotesCandidate)
-                        .Take(1)
-                        .ToList();
-                    foreach (var item in topQota)
-                    {
-                        item.Sucess = true;
-                    }
+                var localListsWithSucessVotes1 = db.LocalLists
+.Where(l => l.ElectionArea == id)
+.Where(l => l.NumberOfVotes > Base)
+.OrderByDescending(l => l.NumberOfVotes)
+.Select(l => l.ListName) // Select only the ListName property
+.ToList();
+                var topMasehe = db.LocalListCandidates
+      .Where(c => c.typeofCandidates == "مسيحي" && localListsWithSucessVotes1.Contains(c.listname))
+      .OrderByDescending(c => c.NumberOfVotesCandidate)
+      .Take(1)
+      .ToList();
+                foreach (var item in topMasehe)
+                {
+                    item.Sucess = true;
                 }
 
-                db.SaveChanges();
+                var topQota = db.LocalListCandidates
+                    .Where(c => c.typeofCandidates == "كوتا" && localListsWithSucessVotes1.Contains(c.listname))
+                    .OrderByDescending(c => c.NumberOfVotesCandidate)
+                    .Take(1)
+                    .ToList();
+                foreach (var item in topQota)
+                {
+                    item.Sucess = true;
+                }
+            }
+
+            db.SaveChanges();
 
 
 
-
-                var groupedCandidates = db.LocalListCandidates
+            var groupedCandidates = db.LocalListCandidates
                     .Where(c => c.ElectionArea == id)
                     .GroupBy(c => c.listname)
                     .Select(group => new CandidateGroup

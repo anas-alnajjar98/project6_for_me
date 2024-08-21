@@ -46,7 +46,7 @@ namespace Election_projectFor_me.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "GeneralListingID,Name,NumberOfVotes,image")] GeneralListing generalListing)
+        public ActionResult Create([Bind(Include = "GeneralListingID,Name,NumberOfVotes,img")] GeneralListing generalListing)
         {
             if (ModelState.IsValid)
             {

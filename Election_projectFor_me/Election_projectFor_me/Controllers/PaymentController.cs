@@ -15,6 +15,7 @@ namespace Election_projectFor_me.Controllers
     {
         private readonly ELECTION_PROJECTEntities _context;
 
+
         public PaymentController()
         {
             // Initialize Stripe with the secret key
@@ -46,9 +47,9 @@ namespace Election_projectFor_me.Controllers
                         Description = "Advertisement Payment",
                         Source = stripeToken,
                         Metadata = new Dictionary<string, string>
-                    {
-                        { "PostalCode", PostalCode } // Add Postal Code to metadata
-                    }
+            {
+                { "PostalCode", PostalCode } // Add Postal Code to metadata
+            }
                     };
                     var service = new ChargeService();
                     Charge charge = service.Create(options);
@@ -71,7 +72,8 @@ namespace Election_projectFor_me.Controllers
                         ad.PaymentID = payment.PaymentID;
                         _context.SaveChanges();
 
-                        return RedirectToAction("Index", "Home");
+                        // Redirect to the Success action
+                        return RedirectToAction("Success", "Payment");
                     }
                     else
                     {
@@ -131,17 +133,18 @@ namespace Election_projectFor_me.Controllers
 
         public ActionResult Success()
         {
-            ViewBag.Message = "Payment was successful.";
-            return RedirectToAction("Index", "Home");
+            //ViewBag.Message = "Payment was successful.";
+            //return RedirectToAction("Index", "Home");
+            return View();
         }
 
         [HttpPost]
         public ActionResult IPN()
         {
             var formVals = new Dictionary<string, string>
-        {
-            { "cmd", "_notify-validate" }
-        };
+            {
+                { "cmd", "_notify-validate" }
+            };
 
             string response;
             using (var client = new WebClient())

@@ -1,12 +1,14 @@
-﻿using Election_projectFor_me.Models;
-using System;
+﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Data.Entity;
 using System.IO;
 using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using Election_projectFor_me.Models;
+
 
 namespace Election_projectFor_me.Controllers
 {
@@ -71,6 +73,9 @@ namespace Election_projectFor_me.Controllers
             TempData["Governorate"] = model.Governorate;
             TempData["NumberOfVotes"] = 0;
             TempData["Image"] = model.img;
+            TempData["id"] = model.ID;
+
+
 
 
 

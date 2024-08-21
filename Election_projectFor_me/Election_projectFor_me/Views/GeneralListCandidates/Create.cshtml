@@ -6,10 +6,6 @@
 }
 
 <style>
-    body{
-
-        direction:rtl;
-    }
     section.h-100.bg-dark {
         background-color: rgb(242 241 241) !important;
     }
@@ -32,9 +28,6 @@
 
     .btn {
         margin: 5px;
-    }
-    input.form-control.form-control-lg{
-        height:40px;
     }
 </style>
 
@@ -59,7 +52,6 @@
                                             <th>منطقة الانتخابات</th>
                                             <th>المحافظة</th>
                                             <th>الجنس</th>
-
                                             <th>الإجراءات</th>
                                         </tr>
                                     </thead>
@@ -71,7 +63,6 @@
                             <button type="button" class="btn btn-secondary btn-lg" id="add-candidate">إضافة مرشح</button>
                             <button type="submit" class="btn btn-primary btn-lg">إرسال</button>
                             <p id="error-message" class="text-danger mt-3" style="display: none;">يجب إدخال 4 مرشحين على الأقل.</p>
-                            <p id="error-type-message" class="text-danger mt-3" style="display: none;">لا يمكنك إضافة أكثر من مرشح من نوع كوتا أو مسيحي.</p>
                         </div>
                     </div>
                 </div>
@@ -83,8 +74,6 @@
 @section Scripts {
     <script>
         let candidateIndex = 0;
-        let kotaUsed = false;
-        let christianUsed = false;
 
         function createCandidateRow(index) {
             return `
@@ -104,7 +93,6 @@
                             <td>
                                 <input type="text" name="[${index}].Gender" class="form-control form-control-lg" readonly />
                             </td>
-
                             <td>
                                 <button type="button" class="btn btn-danger btn-sm remove-candidate">حذف</button>
                             </td>
@@ -113,12 +101,6 @@
         }
 
         function addCandidateRow() {
-            if (kotaUsed && christianUsed) {
-                document.getElementById('error-type-message').style.display = 'block';
-                return;
-            }
-
-            document.getElementById('error-type-message').style.display = 'none';
             const container = document.getElementById('candidates-container');
             const rowHtml = createCandidateRow(candidateIndex);
             container.insertAdjacentHTML('beforeend', rowHtml);
@@ -127,25 +109,7 @@
 
         function removeCandidateRow(event) {
             if (event.target.classList.contains('remove-candidate')) {
-                const candidateRow = event.target.closest('.candidate-row');
-                const candidateType = candidateRow.querySelector('select[name$=".TypeOfCandidates"]').value;
-
-                if (candidateType === "كوتا") {
-                    kotaUsed = false;
-                } else if (candidateType === "مسيحي") {
-                    christianUsed = false;
-                }
-
-                candidateRow.remove();
-            }
-        }
-
-        function updateCandidateType(select) {
-            const value = select.value;
-            if (value === "كوتا") {
-                kotaUsed = true;
-            } else if (value === "مسيحي") {
-                christianUsed = true;
+                event.target.closest('.candidate-row').remove(); // حذف صف المرشح من الجدول
             }
         }
 
@@ -186,16 +150,6 @@
                 document.getElementById('error-message').style.display = 'block';
             } else {
                 document.getElementById('error-message').style.display = 'none';
-            }
-
-            // تحقق من وجود مرشح كوتا أو مسيحي مكرر
-            const kotaCount = document.querySelectorAll('select[name$=".TypeOfCandidates"] option[value="كوتا"]:selected').length;
-            const christianCount = document.querySelectorAll('select[name$=".TypeOfCandidates"] option[value="مسيحي"]:selected').length;
-            if (kotaCount > 1 || christianCount > 1) {
-                event.preventDefault();
-                document.getElementById('error-type-message').style.display = 'block';
-            } else {
-                document.getElementById('error-type-message').style.display = 'none';
             }
         });
 

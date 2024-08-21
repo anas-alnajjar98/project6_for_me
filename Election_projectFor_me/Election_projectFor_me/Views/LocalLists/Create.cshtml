@@ -75,11 +75,12 @@
                                                 @Html.TextBoxFor(m => m.img, new { type = "file", @class = "form-control " })
                                                 @Html.ValidationMessageFor(model => model.img, "", new { @class = "text-danger" })
                                             </div>
-                                            @Html.LabelFor(model => model.img, htmlAttributes: new { @class = "control-label" })
+                                            <label>تحميل صوره </label>
+                                            @*@Html.LabelFor(model => model.image, htmlAttributes: new { @class = "control-label" })*@
                                         </div>
                                     </div>
 
-                                    <button type="submit" class="btn btn-primary btn-lg">Next</button>
+                                    <button type="submit" class="btn btn-primary btn-lg">التالي</button>
 
                                 </div>
                             </div>

@@ -35,5 +35,6 @@ namespace Election_projectFor_me.Models
         public virtual DbSet<DATE> DATES { get; set; }
         public virtual DbSet<Payment> Payments { get; set; }
         public virtual DbSet<Debate> Debates { get; set; }
+        public virtual DbSet<Admin> Admins { get; set; }
     }
 }

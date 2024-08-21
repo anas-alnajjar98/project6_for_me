@@ -1,4 +1,5 @@
 ﻿using Election_projectFor_me.Models;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -105,6 +106,28 @@ namespace Election_projectFor_me.Controllers
             }
             return View();
 
+        }
+        public ActionResult LoginAdmin()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult LoginAdmin(string Email, string Password)
+        {
+            var user = _context.Admins.FirstOrDefault(u => u.Email == Email);
+            if (user != null)
+            {
+                if (user.PasswordHash == Password)
+                {
+                    TempData["LoggedUser"] = JsonConvert.SerializeObject(user);
+                    return RedirectToAction("Home", new { id = user.AdminID });
+                }
+            }
+
+            ViewBag.Message = "Invalid login attempt.";
+            return View();
         }
 
 

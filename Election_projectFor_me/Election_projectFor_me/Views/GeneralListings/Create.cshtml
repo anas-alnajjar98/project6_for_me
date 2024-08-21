@@ -7,7 +7,6 @@
     section.h-100.bg-dark {
         background-color: rgb(209 209 209) !important;
     }
-   
 </style>
 
 @using (Html.BeginForm())
@@ -33,7 +32,8 @@
                                         <div class="col-md-9 mb-4">
                                             <div data-mdb-input-init class="form-outline">
                                                 @Html.TextBoxFor(m => m.Name, new { @class = "form-control form-control-lg" })
-                                                @Html.LabelFor(m => m.Name, new { @class = "form-label" })
+                                                @*@Html.LabelFor(m => m.Name, new { @class = "form-label" })*@
+                                                <label>اسم القائمه</label>
                                             </div>
 
                                             <div class="form-group">
@@ -42,12 +42,18 @@
                                                     @Html.TextBoxFor(m => m.img, new { type = "file", @class = "form-control " })
                                                     @Html.ValidationMessageFor(model => model.img, "", new { @class = "text-danger" })
                                                 </div>
-                                                @Html.LabelFor(model => model.img, htmlAttributes: new { @class = "control-label" })
+                                                @*@Html.LabelFor(model => model.image, htmlAttributes: new { @class = "control-label" })*@
+                                                <label>تحميل صوره</label>
+
                                             </div>
                                         </div>
                                         <div>
-                                            <button type="submit" class="btn btn-primary btn-">التالي</button>
+                                            <button type="submit" class="btn btn-primary btn-lg">التالي</button>
+
                                         </div>
+
+
+
                                     </div>
                                 </div>
                             </div>
